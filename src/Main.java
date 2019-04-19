@@ -1,12 +1,9 @@
-import sort.BubbleSort;
-import sort.ISort;
-import sort.InsertSort;
-import sort.MergeSort;
+import sort.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        sortTest(new MergeSort());
+        sortTest(new QuickSort());
     }
 
     private static void sortTest(ISort sort) {
