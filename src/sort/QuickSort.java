@@ -20,21 +20,46 @@ public class QuickSort implements ISort{
     }
 
     private int partition(int[] data, int l, int h) {
-        int pivot = data[h];
-        int i = l;
-        for (int j = l; j < h - 1; j++) {
-            if (data[j] < pivot) {
-                int temp = data[i];
-                data[i] = data[j];
-                data[j] = temp;
+        int pivot = data[l];
+        int left = l;
+        while (l != h) {
+            while (l < h && data[h] >= pivot) {
+                h--;
+            }
 
-                i = i+1;
+            while (l < h && data[l] <= pivot) {
+                l++;
+            }
+
+            if (l < h) {
+                int temp = data[l];
+                data[l] = data[h];
+                data[h] = temp;
             }
         }
-        int temp = data[i];
-        data[i] = data[h];
-        data[h] = temp;
-        return i;
+        data[left] = data[l];
+        data[l] = pivot;
+
+        return l;
     }
+
+//    private int partition(int[] data, int l, int h) {
+//        int pivot = data[l];
+//        int i = l;
+//        int j = h;
+//        while (i < j) {
+//            while (i<j && data[j] >= pivot) {
+//                j--;
+//            }
+//            data[i] = data[j];
+//
+//            while (i < j && data[i] < pivot) {
+//                i++;
+//            }
+//            data[j] = data[i];
+//        }
+//        data[j] = pivot;
+//        return j;
+//    }
 
 }
