@@ -1,10 +1,11 @@
 import sort.BubbleSort;
 import sort.ISort;
+import sort.InsertSort;
 
 public class Main {
 
     public static void main(String[] args) {
-        sortTest(new BubbleSort());
+        sortTest(new InsertSort());
     }
 
     private static void sortTest(ISort sort) {
