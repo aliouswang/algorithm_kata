@@ -13,15 +13,45 @@ public class QuickSort implements ISort{
 
     private void sort(int[] data, int l, int h) {
         if (l >= h) return;
+        // 在数量 小于10 的时候，使用插入 排序
+        if (h - l + 1 < 10) {
+//            new InsertSort().sort(data, l, h);
+        }
         int pivot = partition(data, l, h);
 
         sort(data, l, pivot - 1);
         sort(data, pivot + 1, h);
     }
 
+
     private int partition(int[] data, int l, int h) {
-        int pivot = data[l];
-        int left = l;
+        // 对基准点的选择进行 优化
+        if (data.length <=1) return l;
+        int mid = l + (h - l) / 2;
+        int index = mid;
+        if (data[mid] > data[l]) {
+            if (data[mid] < data[h]) {
+                index = mid;
+            } else if (data[mid] > data[h]){
+                if (data[l] > data[h]) {
+                    index = l;
+                } else {
+                    index = h;
+                }
+            }
+        } else {
+            if (data[mid] > data[h]) {
+                index = mid;
+            } else if (data[mid] < data[h]){
+                if (data[l] > data[h]) {
+                    index = h;
+                } else {
+                    index = l;
+                }
+            }
+        }
+        int pivot = data[index];
+        int left = index;
         while (l != h) {
             while (l < h && data[h] >= pivot) {
                 h--;
