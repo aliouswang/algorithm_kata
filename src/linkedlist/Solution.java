@@ -5,23 +5,24 @@ import java.util.*;
 public class Solution {
 
     public static void main(String[] args) {
-        ListNode listNode =  new ListNode(1);
-        ListNode listNode1 = new ListNode(3);
-        listNode.next = listNode1;
-        listNode1.next = new ListNode(8);
+//        ListNode listNode =  new ListNode(1);
+//        ListNode listNode1 = new ListNode(3);
+//        listNode.next = listNode1;
+//        listNode1.next = new ListNode(8);
+//
+//        ListNode listNode2 = new ListNode(2);
+//
+//        ListNode merge = mergeTwoLists(listNode, listNode2);
+//
+//        if (merge != null) {
+//
+//        }
 
-        ListNode listNode2 = new ListNode(2);
-
-        ListNode merge = mergeTwoLists(listNode, listNode2);
-
-        if (merge != null) {
-
-        }
-
+        twoSum(new int [] {2,17,31,15}, 9);
 
     }
 
-    public int[] twoSum(int[] numbers, int target) {
+    public static int[] twoSum(int[] numbers, int target) {
 
         class Pair {
             int index;
@@ -37,7 +38,7 @@ public class Solution {
 
             @Override
             public int compare(Pair o1, Pair o2) {
-                return o1.value - o2.value;
+                return - o2.value + o1.value;
             }
         }
 
@@ -58,7 +59,11 @@ public class Solution {
             } else if (pairs.get(left).value + pairs.get(right).value < target) {
                 left ++;
             } else {
-                return new int[] {pairs.get(left).index, pairs.get(right).index};
+                if (pairs.get(left).index > pairs.get(right).index) {
+                    return new int[]{pairs.get(right).index, pairs.get(left).index};
+                } else {
+                    return new int[]{pairs.get(left).index, pairs.get(right).index};
+                }
             }
         }
 
