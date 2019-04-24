@@ -1,5 +1,7 @@
 package linkedlist;
 
+import sort.InsertSort;
+
 import java.util.*;
 
 public class Solution {
@@ -18,8 +20,50 @@ public class Solution {
 //
 //        }
 
-        twoSum(new int [] {2,17,31,15}, 9);
+//        twoSum(new int [] {2,17,31,15}, 9);
 
+        start();
+        List<List<Integer>> result = threeSum(new int[]{-1, 1, 0});
+        end();
+    }
+
+    private static long startStamp = 0, endStamp = 0;
+
+    private static void start() {
+        startStamp = System.currentTimeMillis();
+    }
+
+    private static void end() {
+        System.out.println("use time :" + (System.currentTimeMillis() - startStamp));
+    }
+
+    public static List<List<Integer>> threeSum(int[] numbers) {
+//        new InsertSort().sort(numbers);
+        Arrays.sort(numbers);
+        List<List<Integer>> resultList = new ArrayList<>();
+        for (int i = 0; i < numbers.length; i++) {
+            int curNumber = numbers[i];
+            if (curNumber > 0) break;
+            if (i > 0 && numbers[i] == numbers[i-1]) continue;
+            int left = i + 1;
+            int right = numbers.length - 1;
+            while (left < right) {
+                int sum = -curNumber;
+                if (numbers[left] + numbers[right] > sum) {
+                    right--;
+                } else if (numbers[left] + numbers[right] < sum) {
+                    left++;
+                } else {
+                    List<Integer> list = Arrays.asList(numbers[i], numbers[left], numbers[right]);
+                    resultList.add(list);
+                    while (left < right && numbers[left] == numbers[left+1]) left++;
+                    while (left < right && numbers[right] == numbers[right-1]) right--;
+                    left++;
+                    right--;
+                }
+            }
+        }
+        return resultList;
     }
 
     public static int[] twoSum(int[] numbers, int target) {
@@ -38,7 +82,7 @@ public class Solution {
 
             @Override
             public int compare(Pair o1, Pair o2) {
-                return - o2.value + o1.value;
+                return -o2.value + o1.value;
             }
         }
 
@@ -55,9 +99,9 @@ public class Solution {
 
         while (left < right) {
             if (pairs.get(left).value + pairs.get(right).value > target) {
-                right --;
+                right--;
             } else if (pairs.get(left).value + pairs.get(right).value < target) {
-                left ++;
+                left++;
             } else {
                 if (pairs.get(left).index > pairs.get(right).index) {
                     return new int[]{pairs.get(right).index, pairs.get(left).index};
@@ -67,7 +111,7 @@ public class Solution {
             }
         }
 
-        return new int[] {};
+        return new int[]{};
     }
 
     public static ListNode reverseListNode(ListNode head) {
