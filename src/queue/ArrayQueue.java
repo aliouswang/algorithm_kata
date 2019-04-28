@@ -50,20 +50,43 @@ public class ArrayQueue<T> implements IQueue<T>{
     @Override
     public void put(T t) {
         lock.lock();
-        while (size == datas.length) {
-            try {
-                notFull.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        try {
+            while (size == datas.length) {
+                try {
+                    notFull.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            datas[putIndex++] = t;
+            if (putIndex == datas.length) {
+                putIndex = 0;
+            }
+            size++;
+            notEmpty.signal();
+        } finally {
+            lock.unlock();
         }
-        datas[putIndex++] = t;
-        size++;
-        notEmpty.signal();
+
     }
 
     @Override
     public T take() {
-        return null;
+        lock.lock();
+        while (size == 0) {
+            try {
+                notEmpty.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        T data = datas[takeIndex++];
+        if (takeIndex == datas.length) {
+            takeIndex = 0;
+        }
+        size--;
+        notFull.signal();
+        lock.unlock();
+        return data;
     }
 }
