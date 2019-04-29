@@ -20,6 +20,12 @@ public class TopKFrequenceWordsSolution {
     HashMap<String, Integer> wordMap = new HashMap<>();
     PriorityQueue<String> priorityQueue;
     public String[] topKFrequentWords(String[] words, int k) {
+
+        if (k == 0) {
+            String[] empty = new String[] {};
+            return empty;
+        }
+
         // build word map.
         for (String word : words) {
             if (wordMap.containsKey(word)) {
