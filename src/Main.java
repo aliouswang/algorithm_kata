@@ -1,9 +1,20 @@
 import sort.*;
+import util.Log;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) {
-        sortTest(new QuickSort());
+//        sortTest(new QuickSort());
+        HashMap hashMap = new HashMap();
+        ClassLoader classLoader = HashMap.class.getClassLoader();
+        while (classLoader != null) {
+            Log.d(classLoader.toString());
+            classLoader = classLoader.getParent();
+        }
+
     }
 
     private static void sortTest(ISort sort) {
